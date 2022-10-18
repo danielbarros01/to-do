@@ -1,0 +1,37 @@
+.principal{
+    background-color: thistle;
+    width: 80vw;
+    height: 100vh;
+    margin: auto;
+}
+.task{    
+    background-color: salmon;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 0.5rem;
+    padding-bottom: 0;
+}
+
+.task-principal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-abrirDescription{
+    font-size: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+}
+
+.task-secondary{
+
+}
+
+.task-secondary-final{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ocultar{
+    display: none;
+}

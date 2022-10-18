@@ -1,0 +1,31 @@
+include layout
+
+header.header 
+    h1 To-Do 
+
+//-Menu lateral
+button.panel-btn.hamburger.hamburger--arrow(type="button")
+      span.hamburger-box
+        span.hamburger-inner
+
+aside.panel 
+    nav.menu
+        a Cocina 
+        a Pieza
+        a Escuela
+
+//-Inicio
+main.principal
+    button.btn-add Add task
+    section.task
+        .task-principal 
+            input(type="checkbox")
+            p.task-tile Hacer capelettis a la salsa 
+            p.task-priority HIGH
+            p.task-dateExpired 22/11/2022
+            p.button-abrirDescription V
+        .task-secondary 
+            p.description Tenemos que realizar salsa para nuestros invitados el dia de hoy
+            .task-secondary-final 
+                p.task-creacion Creada el 18/10/2022
+                p.task-estado Sin resolver

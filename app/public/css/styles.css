@@ -1,0 +1,28 @@
+html{
+    box-sizing: border-box;
+    font-family: var(--main-font);
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+}
+
+/* Todos los elementos hereden el box-sizing */
+*,
+*:before,
+*:after{
+    box-sizing: inherit;
+}
+
+body{
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.btn-add{
+    margin: 1rem;
+    font-size: 1.5rem;
+    border: none;
+    background-color: rgb(5, 60, 142);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
