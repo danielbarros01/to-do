@@ -3,7 +3,6 @@ const express = require('express'),
     //sequelize
     pug = require('pug');
 
-
 const port = process.env.port || 3000,
     publicDir = express.static(`${__dirname}/public`),
     viewsDir = `${__dirname}/views`,
