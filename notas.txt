@@ -2,9 +2,8 @@
 2.npx sequelize-cli db:migrate
 
 //Crear modelos
-npx sequelize-cli model:generate --name User --attributes name:string,age:integer
-npx sequelize-cli model:generate --name Address --attributes street:string
-npx sequelize-cli model:generate --name post --attributes title:string, body:text
+npx sequelize-cli model:generate --name Task --attributes title:string,description:string,
+priority:string,status:string,expiration_date:date, creation_date:date, date_of_resolution:date
 
 //Crear Seeds
 npx sequelize-cli seed:generate --name create-users

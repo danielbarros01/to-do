@@ -7,6 +7,7 @@ module.exports = {
   host: process.env.DB_HOST || "localhost",
   dialect: process.env.DB_DIALECT || "mysql",
   define: {
-    timestamps: false
+    timestamps: false,
+    underscored: true
   }
 }
