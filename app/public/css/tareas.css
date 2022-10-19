@@ -17,21 +17,69 @@
     justify-content: space-between;
 }
 
-.button-abrirDescription{
-    font-size: 1rem;
-    margin: 1rem;
-    cursor: pointer;
+.task-check{
+    width: 100px;
 }
+/* .task-secondary{
 
-.task-secondary{
-
-}
+} */
 
 .task-secondary-final{
     display: flex;
     justify-content: space-between;
 }
 
-.ocultar{
-    display: none;
+.button-abrirDescription{
+    cursor: pointer;
+}
+
+/* Agregar ------------------*/
+.container-addTask{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:4rem; 
+    background-color: antiquewhite;
+}
+
+.addTask{
+    width: 60vw;
+    height: 80vh;
+    background-color: white; 
+    margin: auto;
+    border: 2px solid black;
+}
+
+.addTask form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 1rem;
+}
+
+.addTask form input{
+    margin-bottom: 2rem;
+}
+
+.addTask form input:not(:last-child){
+    font-size: 1.8rem;
+    border: none;
+    border-bottom: 2px solid blue;
+}
+
+/* text area description */
+.addTask form textarea{
+    font-size: 1.2rem;
+    border: 2px solid blue;
+    resize: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.rango{
+    width: 100%;
+    cursor: pointer;
 }
