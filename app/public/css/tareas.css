@@ -48,6 +48,7 @@
     background-color: white; 
     margin: auto;
     border: 2px solid black;
+    min-width: 380px;
 }
 
 .addTask form{
