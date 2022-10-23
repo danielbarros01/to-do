@@ -20,6 +20,13 @@ router.post('/new', (req, res) => {
     res.send(task);
 });
 
-router.get('/tasks', TaskController.all);
+//Eliminar tarea
+router.post('/delete', (req,res)=>{
+    const id = req.body.id;
+
+    TaskController.delete(id);
+
+    res.json({id})
+});
 
 module.exports = router;

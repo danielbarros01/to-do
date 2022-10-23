@@ -10,6 +10,7 @@
     border-radius: 15px;
     padding: 0.5rem;
     padding-bottom: 0;
+    margin-bottom: 1.4rem;
 }
 
 .task-principal{
@@ -19,6 +20,10 @@
 
 .task-check{
     width: 100px;
+}
+
+.button-abrirDescription{
+    width: 1.2rem;
 }
 /* .task-secondary{
 
@@ -30,6 +35,8 @@
 }
 
 .button-abrirDescription{
+    height: 50%;
+    margin-top: 3%;
     cursor: pointer;
 }
 
@@ -83,4 +90,24 @@
 .rango{
     width: 100%;
     cursor: pointer;
+}
+
+/* Task options */
+.btnAbrirOptions{
+    position: absolute;
+    margin-top: -10px; 
+    width: 80%;
+    height: 1.5rem;
+}
+
+.btnAbrirOptions img{
+    width: 1.5rem;
+    float: right;
+    cursor: pointer;
+}
+
+.task-options{
+    position: relative;
+    margin-top: -1.9rem;
+    float: right;
 }

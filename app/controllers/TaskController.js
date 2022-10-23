@@ -1,12 +1,13 @@
-const { Task } = require('../database/db')
+const { Task } = require('../database/db');
+    f = require('../public/js/funcionalidades.js')
 
 module.exports = {
     async all() {
         let tasks = await Task.findAll();
 
         tasks.forEach(task => {
-            task.expiration_date2 = formatear(new Date(task.expiration_date))
-            task.creation_date2 = formatear(new Date(task.creation_date))
+            task.expiration_date2 = f.formatear(new Date(task.expiration_date))
+            task.creation_date2 = f.formatear(new Date(task.creation_date))
             switch (task.priority) {
                 case '1': task.priority2 = "BAJA"
                     break;
@@ -25,13 +26,12 @@ module.exports = {
         Task.create(newTask)
             .then(res => console.log('Tarea agregada'))
             .catch(err => console.log('error al guardar', err))
+    },
+
+    delete(id){
+        Task.destroy({where: {id}})
+            .then(res => console.log('Tarea eliminada'))
+            .catch(err => console.log('error al eliminar tarea', err))
     }
 }
 
-function formatear(date) {
-    let fecha = new Date(date);
-    let year = fecha.getFullYear()
-    let month = fecha.getMonth()
-    let day = fecha.getDate()
-    return `${day}/${month}/${year}`;
-}

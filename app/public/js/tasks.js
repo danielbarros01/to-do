@@ -5,6 +5,9 @@ export function openDescription(taskBtn){
         if(e.target.matches(taskBtn)){
             e.target.parentNode.nextSibling.classList.toggle("ocultar");
         }
+        if(e.target.matches("#btnAbrirOptions")){
+            e.target.parentNode.parentNode.querySelector('.task-options').classList.toggle("ocultar")
+        }
     })
 }
 

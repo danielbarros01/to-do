@@ -21,6 +21,10 @@ body{
     display: none;
 }
 
+.ocultar-con-lugar{
+    visibility: hidden;
+}
+
 .btnBlue{
     margin: 1rem;
     font-size: 1.5rem;

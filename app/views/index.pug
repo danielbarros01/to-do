@@ -18,12 +18,17 @@ main.principal
     button.btnBlue.btn-add Add task
     each tarea in tasks
         section.task
+            .task-options.ocultar
+                form(action=`/delete` method="POST")
+                    input(type="button" value="Eliminar" class="btnDelete" data-id=`${tarea.id}`)
+            .btnAbrirOptions 
+                img(src="/img/more_options.svg" id="btnAbrirOptions")
             .task-principal 
                 input(type="checkbox" id="checkTask")
                 p.task-tile= tarea.title
                 p.task-priority= tarea.priority2
                 p.task-dateExpired= tarea.expiration_date2
-                p.button-abrirDescription V
+                img.button-abrirDescription(src="/img/arrow_down.svg")
             .task-secondary.ocultar
                 p.description= tarea.description
                 .task-secondary-final 
@@ -42,3 +47,23 @@ main.principal
             .botones-add-task
                 button.btnBlue.saveTask Agregar
                 button.btnRed.cancelTask Cancelar
+
+
+template(id="template-task")
+    section.task
+        .task-options.ocultar
+            form(action=`/delete` method="POST")
+                input(type="button" value="Eliminar" class="btnDelete")
+        .btnAbrirOptions 
+            img(src="/img/more_options.svg" id="btnAbrirOptions")
+        .task-principal 
+            input(type="checkbox" id="checkTask")
+            p.task-tile
+            p.task-priority
+            p.task-dateExpired
+            img.button-abrirDescription(src="/img/arrow_down.svg")
+        .task-secondary.ocultar
+            p.description
+            .task-secondary-final 
+                p.task-creacion
+                p.task-estado
