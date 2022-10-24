@@ -59,25 +59,6 @@ function actualizarTarea(e) {
         .catch(err => alert(`Error al actualizar tarea ${err}`))
 }
 
-function actualizarTaskDom(e) {
-    let padre = e.target.parentNode.parentNode.parentNode;
-    padre.classList.toggle("resuelta")
-}
-function actualizarReloj(e) {
-    if (e.target.src === "http://localhost:3000/img/not_process.svg") {
-        e.target.src = "/img/in_process.svg";
-    } else if (e.target.src === "http://localhost:3000/img/in_process.svg") {
-        e.target.src = "/img/not_process.svg";
-    }
-}
-
-
-
-
-
-
-
-
 btnsDelete.forEach(btn => {
     idBtnsDeleteArray.push(btn.dataset.id)
 })
@@ -102,9 +83,7 @@ async function insertarTask(e) {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution })
     })
-
     let datos = await guardar.json();
-
     addTaskDom(e, datos.id);
 }
 
@@ -146,6 +125,19 @@ function eliminarTask(e) {
 function eliminarTaskDom(e) {
     let task = e.target.parentNode.parentNode.parentNode;
     task.remove();
+}
+
+//ACTUALIZAR TAREA
+function actualizarTaskDom(e) {
+    let padre = e.target.parentNode.parentNode.parentNode;
+    padre.classList.toggle("resuelta")
+}
+function actualizarReloj(e) {
+    if (e.target.src === "http://localhost:3000/img/not_process.svg") {
+        e.target.src = "/img/in_process.svg";
+    } else if (e.target.src === "http://localhost:3000/img/in_process.svg") {
+        e.target.src = "/img/not_process.svg";
+    }
 }
 
 //Otras funciones

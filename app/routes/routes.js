@@ -15,20 +15,10 @@ router.get('/', async (req, res) => {
 router.post('/new', async (req, res) => {
     res.setHeader('Content-type', 'text/plain');
     const task = await req.body;
-    await TaskController.save(task);
+    let guardar = await TaskController.save(task);
 
-    let id = await TaskController.obtenerIdInsertado()
-    task.id = JSON.stringify(id[0][0].id)
-
-    res.send(task);
+    res.send(guardar);
 });
-
-//Obtener ultimo id
-router.get('/ultimoId', async (req,res) => {
-    let id = await TaskController.obtenerIdInsertado()
-    
-    console.log(JSON.stringify(id[0][0].id)) 
-})
 
 //Eliminar tarea
 router.post('/delete', (req, res) => {

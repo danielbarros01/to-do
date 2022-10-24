@@ -22,9 +22,9 @@ module.exports = {
         return tasks;
     },
 
-    save(newTask) {
-        let crear = Task.create(newTask)
-
+    async save(newTask) {
+        let crear = await Task.create(newTask)
+        
         return crear;
     },
 
@@ -45,13 +45,6 @@ module.exports = {
         })
             .then(res => console.log(res))
             .catch(err => console.log(err))
-    },
-
-    obtenerIdInsertado() {
-        let id = connection.query("SELECT MAX(id) AS id FROM tasks")
-
-        return id;
     }
-
 }
 
