@@ -1,5 +1,5 @@
-const { Task } = require('../database/db');
-    f = require('../public/js/funcionalidades.js')
+const { Task, connection } = require('../database/db');
+f = require('../public/js/funcionalidades.js')
 
 module.exports = {
     async all() {
@@ -23,15 +23,35 @@ module.exports = {
     },
 
     save(newTask) {
-        Task.create(newTask)
-            .then(res => console.log('Tarea agregada'))
-            .catch(err => console.log('error al guardar', err))
+        let crear = Task.create(newTask)
+
+        return crear;
     },
 
-    delete(id){
-        Task.destroy({where: {id}})
+    delete(id) {
+        Task.destroy({ where: { id } })
             .then(res => console.log('Tarea eliminada'))
             .catch(err => console.log('error al eliminar tarea', err))
+    },
+
+    update(task, id) {
+        Task.update({
+            status: task.status,
+            priority: task.priority
+        }, {
+            where: {
+                id
+            }
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    },
+
+    obtenerIdInsertado() {
+        let id = connection.query("SELECT MAX(id) AS id FROM tasks")
+
+        return id;
     }
+
 }
 

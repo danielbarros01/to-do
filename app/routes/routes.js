@@ -12,21 +12,40 @@ router.get('/', async (req, res) => {
 })
 
 //Guardar tarea
-router.post('/new', (req, res) => {
+router.post('/new', async (req, res) => {
     res.setHeader('Content-type', 'text/plain');
-    const task = req.body;
+    const task = await req.body;
+    await TaskController.save(task);
 
-    TaskController.save(task);
+    let id = await TaskController.obtenerIdInsertado()
+    task.id = JSON.stringify(id[0][0].id)
+
     res.send(task);
 });
 
+//Obtener ultimo id
+router.get('/ultimoId', async (req,res) => {
+    let id = await TaskController.obtenerIdInsertado()
+    
+    console.log(JSON.stringify(id[0][0].id)) 
+})
+
 //Eliminar tarea
-router.post('/delete', (req,res)=>{
+router.post('/delete', (req, res) => {
     const id = req.body.id;
 
     TaskController.delete(id);
 
-    res.json({id})
+    res.json({ id })
 });
+
+
+router.put('/update/:id', (req, res) => {
+    const task = req.body;
+    console.log(task, req.params.id)
+    TaskController.update(task, req.params.id);
+
+    res.json(task);
+})
 
 module.exports = router;

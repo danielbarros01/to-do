@@ -92,6 +92,19 @@
     cursor: pointer;
 }
 
+/* div-check CHECK BOX Y RELOJ ARENA*/
+.div-check{
+    display: flex;
+}
+
+.div-check .checkTask{
+    width: 20px;
+}
+.div-check .relojProcess{
+    width: 30px;
+    cursor: pointer;
+}
+
 /* Task options */
 .btnAbrirOptions{
     position: absolute;
@@ -110,4 +123,10 @@
     position: relative;
     margin-top: -1.9rem;
     float: right;
+}
+
+
+/* Tarea resuelta */
+.resuelta{
+    background-color: #54B435;
 }

@@ -1,4 +1,43 @@
 include layout
+
+mixin contenidoTarea(tarea)
+    .task-options.ocultar
+        form(action=`/delete` method="POST")
+            input(type="button" value="Eliminar" class="btnDelete" data-id=`${tarea.id}`)
+    .btnAbrirOptions 
+        img(src="/img/more_options.svg" id="btnAbrirOptions")
+    .task-principal
+        if tarea.status == 'resuelta'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}` checked disabled)
+                img.relojProcess(src="/img/completed_process.svg")
+        else if tarea.status == 'sin resolver'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/not_process.svg" data-id=`${tarea.id}`)
+        else if tarea.status == 'resolviendo'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/in_process.svg" data-id=`${tarea.id}`)
+
+        p.task-tile= tarea.title
+        p.task-priority= tarea.priority2
+        p.task-dateExpired= tarea.expiration_date2
+        img.button-abrirDescription(src="/img/arrow_down.svg")
+    .task-secondary.ocultar
+        p.description= tarea.description
+        .task-secondary-final 
+            p.task-creacion= tarea.creation_date2
+            p.task-estado= tarea.date_of_resolution
+
+mixin verificarTareaResuelta(tarea)
+    if tarea.status == "resuelta"
+        section.task.resuelta 
+            +contenidoTarea(tarea)
+    else
+        section.task 
+            +contenidoTarea(tarea)
+
 header.header 
     h1 To-Do 
 
@@ -17,23 +56,7 @@ aside.panel
 main.principal
     button.btnBlue.btn-add Add task
     each tarea in tasks
-        section.task
-            .task-options.ocultar
-                form(action=`/delete` method="POST")
-                    input(type="button" value="Eliminar" class="btnDelete" data-id=`${tarea.id}`)
-            .btnAbrirOptions 
-                img(src="/img/more_options.svg" id="btnAbrirOptions")
-            .task-principal 
-                input(type="checkbox" id="checkTask")
-                p.task-tile= tarea.title
-                p.task-priority= tarea.priority2
-                p.task-dateExpired= tarea.expiration_date2
-                img.button-abrirDescription(src="/img/arrow_down.svg")
-            .task-secondary.ocultar
-                p.description= tarea.description
-                .task-secondary-final 
-                    p.task-creacion= tarea.creation_date2
-                    p.task-estado= tarea.date_of_resolution
+        +verificarTareaResuelta(tarea)      
 
 .container-addTask.ocultar
     div.addTask
@@ -57,7 +80,9 @@ template(id="template-task")
         .btnAbrirOptions 
             img(src="/img/more_options.svg" id="btnAbrirOptions")
         .task-principal 
-            input(type="checkbox" id="checkTask")
+            .div-check
+                input(type="checkbox" class="checkTask")
+                img.relojProcess(src="/img/not_process.svg")
             p.task-tile
             p.task-priority
             p.task-dateExpired
@@ -67,3 +92,5 @@ template(id="template-task")
             .task-secondary-final 
                 p.task-creacion
                 p.task-estado
+
+
