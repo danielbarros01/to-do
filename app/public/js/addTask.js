@@ -1,7 +1,7 @@
 const d = document,
     btnsDelete = d.querySelectorAll(".btnDelete"),
     idBtnsDeleteArray = [],
-    $template = d.getElementById("template-task").content,
+    //$template = d.getElementById("template-task").content,
     $fragment = document.createDocumentFragment(),
     $main = d.querySelectorAll(".principal");
 

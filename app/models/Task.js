@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     static associate(models) {
-      // define association here
+      Task.belongsTo(models.List, {as: "lista", foreignKey:"list_id"})
     }
   }
   Task.init({

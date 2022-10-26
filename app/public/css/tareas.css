@@ -1,16 +1,72 @@
 .principal{
-    background-color: thistle;
     width: 80vw;
-    height: 100vh;
     margin: auto;
 }
+
+/* LISTAS */
+
+    /* Parte de arriba */
+.list-section{
+    border: 1px solid #371B58;
+    background-color: #7858A6;
+    padding: 0.4rem;
+}
+
+.btnOpenList{
+    width: 1.8rem;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+.btnOpenList:hover{
+    transform: translateY(4px);
+}
+
+.list-title{
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+}
+
+.btnAddTask{
+    width: 4rem;
+    height: 2rem;
+    cursor: pointer;
+    color: #371B58;
+}
+
+.title-sin-resolver, .title-resolviendo{
+    border-bottom: 1px dashed #371B58;
+}
+
+/* Parte intermediaria lista de tareas*/
+
+.list-tasks{
+    width: 90%;
+    margin: auto;
+}
+
+.title-sin-resolver, .title-resolviendo, .title-resueltas{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnViewTasks{
+    width: 1.6rem;
+    cursor: pointer;
+}
+.btnViewTasks:hover{
+    filter: opacity(.7);
+}
+
+
+/* TAREAS */
 .task{    
-    background-color: salmon;
-    border: 1px solid black;
-    border-radius: 15px;
+    margin-top: -1px;
+    background-color: #5B4B8A;
+    border: 1px solid #371B58;
     padding: 0.5rem;
     padding-bottom: 0;
-    margin-bottom: 1.4rem;
+    margin-bottom: 4px;
 }
 
 .task-principal{

@@ -3,7 +3,11 @@ f = require('../public/js/funcionalidades.js')
 
 module.exports = {
     async all() {
-        let tasks = await Task.findAll();
+        let tasks = await Task.findAll({
+            include: {
+                association: "lista"
+            }
+        });
 
         tasks.forEach(task => {
             task.expiration_date2 = f.formatear(new Date(task.expiration_date))

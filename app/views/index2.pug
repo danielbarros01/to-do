@@ -1,0 +1,95 @@
+include layout
+
+
+//-Agregar tarea
+mixin addHeaderCheckTask(tarea)
+        if tarea.status == 'resuelta'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}` checked disabled)
+                img.relojProcess(src="/img/completed_process.svg")
+        else if tarea.status == 'sin resolver'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/not_process.svg" data-id=`${tarea.id}`)
+        else if tarea.status == 'resolviendo'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/in_process.svg" data-id=`${tarea.id}`)
+
+mixin addBodyTask(tarea)
+    p.task-tile= tarea.title
+    p.task-priority= tarea.priority2
+    p.task-dateExpired= tarea.expiration_date2
+    img.button-abrirDescription(src="/img/arrow_down.svg")
+
+mixin addSecondaryBodyTask(tarea)
+    p.description= tarea.description
+    .task-secondary-final 
+        p.task-creacion= tarea.creation_date2
+        p.task-estado= tarea.date_of_resolution
+
+header.header 
+    h1 To-Do 
+
+//-Menu lateral
+button.panel-btn.hamburger.hamburger--arrow(type="button")
+      span.hamburger-box
+        span.hamburger-inner(id="hamburger-inner")
+
+aside.panel
+    img.btnAddList(src="/img/add-list.svg")
+    nav.menu
+        a.list Todas
+        each list in lists
+            a.list= list.title
+
+main.principal
+    //-Habra muchos de estos sections, seran las listas
+    each list in lists
+        section.list-section 
+            .list-title(data-id= list.id) 
+                button.btnAddTask ADD
+                h3= list.title
+                img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
+            .list-tasks 
+                .title-sin-resolver
+                    h4 Resolviendo 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-sin-resolver
+                    each task in tasks
+                        if task.status == 'sin resolver' && task.list_id==list.id
+                            .task
+                                .task-principal
+                                    +addHeaderCheckTask(task)
+                                    +addBodyTask(task)
+                                .task-secondary.ocultar
+                                    +addSecondaryBodyTask(task)
+
+
+                .title-resolviendo
+                    h4 Sin resolver 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-resolviendo
+                    each task in tasks
+                        if task.status == 'resolviendo' && task.list_id==list.id
+                            .task
+                                .task-principal
+                                    +addHeaderCheckTask(task)
+                                    +addBodyTask(task)
+                                .task-secondary.ocultar
+                                    +addSecondaryBodyTask(task)
+
+                .title-resueltas
+                    h4 Resueltas 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-resueltas
+                    each task in tasks
+                        if task.status == 'resuelta' && task.list_id==list.id
+                            .task
+                                .task-principal
+                                    +addHeaderCheckTask(task)
+                                    +addBodyTask(task)
+                                .task-secondary.ocultar
+                                    +addSecondaryBodyTask(task)
+
+    

@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
+
+
 html{
     box-sizing: border-box;
-    font-family: var(--main-font);
-    font-size: var(--font-size);
     scroll-behavior: smooth;
+    font-family: 'Kumbh Sans', sans-serif;
+    color: white;
 }
 
 /* Todos los elementos hereden el box-sizing */
@@ -15,6 +18,7 @@ html{
 body{
     margin: 0;
     overflow-x: hidden;
+    background-color: #371B58;
 }
 
 .ocultar{

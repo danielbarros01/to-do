@@ -3,7 +3,7 @@
     z-index: 997;
     top: 0;
     padding: 1em;
-    background-color: var(--main-color);
+    background-color: #371B58;
     color: var(--second-color);
 }
 
@@ -20,7 +20,7 @@
     left: 0;
     width: 20vw;
     overflow-y: auto; /* en y necesito que se adapte, genera barra de scroll*/
-    background-color: yellow;
+    background-color: #4C3575;
     transform: translate(-100%,0);
     transition: transform .3s ease;
 }
@@ -36,8 +36,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f7df1e;
     cursor: pointer;
+}
+
+#hamburger-inner,#hamburger-inner::before,#hamburger-inner::after{
+    background-color: #b988ff;
 }
 
 .panel.is-active{
@@ -52,4 +55,24 @@
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
+}
+
+.list{
+    width: 100%;
+    padding: 10px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.list:hover{
+    background-color: #5B4B8A;
+}
+
+.btnAddList{
+    width: 3rem;
+    float: right;
+    cursor: pointer;
+}
+.btnAddList:hover{
+    filter: opacity(0.7);
 }

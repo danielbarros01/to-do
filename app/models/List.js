@@ -1,0 +1,21 @@
+'use strict';
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class List extends Model {
+    static associate(models) {
+      
+    }
+  }
+  List.init({
+    title: DataTypes.STRING,
+    creation_date: DataTypes.DATE,
+    date_of_resolution: DataTypes.DATE,
+    status: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'List',
+    tableName: 'lists_tasks'
+  });
+  return List;
+};
