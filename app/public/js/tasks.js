@@ -28,7 +28,12 @@ export function viewAddTask(btnAdd) {
     d.addEventListener('click', e => {
         if (e.target.matches(btnAdd)) {
             e.preventDefault();
-            e.target.parentNode.nextSibling.classList.toggle("ocultar");
+            const vistaAgregar = e.target.parentNode.parentNode.parentNode.nextSibling;
+            const id = e.target.dataset.id;
+
+            vistaAgregar.classList.toggle("ocultar");
+            vistaAgregar.querySelector(".saveTask").dataset.id = id;
+            console.log(e.target)
         }
         if (e.target.matches('.cancelTask')) {
             e.preventDefault();

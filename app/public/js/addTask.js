@@ -72,7 +72,11 @@ async function insertarTask(e) {
         status = 'sin resolver',
         expiration_date = d.getElementById('fecha_limite').value,
         creation_date = new Date(),
-        date_of_resolution = null;
+        date_of_resolution = null,
+        list_id = e.target.dataset.id;
+
+        console.log(e.target)
+
     //validar campos
     if (title.trim() === '' || description.trim() === '')
         alert("Debe rellenar los campos obligatorios")
@@ -81,10 +85,11 @@ async function insertarTask(e) {
     let guardar = await fetch('/new', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution })
+        body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution, list_id})
     })
+
     let datos = await guardar.json();
-    addTaskDom(e, datos.id);
+    //addTaskDom(e, datos.id);
 }
 
 function addTaskDom(e, id) {

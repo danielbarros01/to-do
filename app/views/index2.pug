@@ -1,6 +1,5 @@
 include layout
 
-
 //-Agregar tarea
 mixin addHeaderCheckTask(tarea)
         if tarea.status == 'resuelta'
@@ -47,8 +46,8 @@ main.principal
     //-Habra muchos de estos sections, seran las listas
     each list in lists
         section.list-section 
-            .list-title(data-id= list.id) 
-                button.btnAddTask ADD
+            .list-title
+                button.btnAddTask(data-id= list.id) ADD
                 h3= list.title
                 img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
             .list-tasks 
@@ -92,4 +91,16 @@ main.principal
                                 .task-secondary.ocultar
                                     +addSecondaryBodyTask(task)
 
-    
+//-Vista para agregar tarea
+.container-addTask.ocultar
+    div.addTask
+        form
+            input(type="text", name="titulo" placeholder="Agregar titulo" id="title" required)
+            label(for="fechaLimite") Fecha limite  
+            input(type="date", name="fechaLimite" id="fecha_limite")
+            label(for="priority") Priority
+            input.rango(type="range", name="" min="1" max="3" id="prioridad")
+            textarea(name="description", cols="30", rows="10" placeholder="Agregar descripcion" id="descripcion" required)
+            .botones-add-task
+                button.btnBlue.saveTask Agregar
+                button.btnRed.cancelTask Cancelar
