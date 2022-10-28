@@ -1,0 +1,46 @@
+mixin taskDatosElementsDom 
+    .task
+        .task-optionsDelete.ocultar-con-lugar
+            form(action=`/delete` method="POST")
+                input(type="button" value="Eliminar" class="btnDelete" data-id)
+        .task-principal
+            .div-check
+                input(type="checkbox" class="checkTask" data-id)
+                img.relojProcess(src="/img/not_process.svg" data-id)
+            p.task-tile
+            p.task-priority
+            p.task-dateExpired
+            .task-options
+                img.btnAbrirOptions(src="/img/more_options.svg")
+                img.button-abrirDescription(src="/img/arrow_down.svg")
+        .task-secondary.ocultar
+            p.description
+            .task-secondary-final 
+                p.task-creacion
+                p.task-estado
+
+template(id="template-list")
+    section.list-section(data-section_list_id)
+            .list-title
+                button.btnAddTask(data-id) ADD
+                h3.h3-title-list
+                img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
+            .list-tasks
+                .title-sin-resolver
+                    h4 Sin resolver 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-sin-resolver.ocultar
+                
+                .title-resolviendo
+                    h4 Resolviendo 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-resolviendo.ocultar
+                    
+                .title-resueltas
+                    h4 Resueltas 
+                    img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                .tasks-resueltas.ocultar
+
+                .div-deleteList
+                    img.moreOptionsDeleteList(src="/img/more_options.svg", alt="")
+                    img.btnDeleteList.ocultar-con-lugar(src="/img/icon-delete.svg", alt="" data-list_id)

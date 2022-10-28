@@ -18,7 +18,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: 20vw;
+    width: 25vw;
     overflow-y: auto; /* en y necesito que se adapte, genera barra de scroll*/
     background-color: #4C3575;
     transform: translate(-100%,0);

@@ -1,7 +1,7 @@
 const d = document,
     btnsDelete = d.querySelectorAll(".btnDelete"),
     idBtnsDeleteArray = [],
-    //$template = d.getElementById("template-task").content,
+    $template = d.getElementById("template-task").content,
     $fragment = document.createDocumentFragment(),
     $main = d.querySelectorAll(".principal");
 
@@ -12,6 +12,7 @@ d.addEventListener('click', e => {
     }
     if (e.target.matches(".saveTask")) {
         insertarTask(e);
+
     }
 
     if (e.target.matches(".checkTask")) {
@@ -75,21 +76,30 @@ async function insertarTask(e) {
         date_of_resolution = null,
         list_id = e.target.dataset.id;
 
-        console.log(e.target)
-
     //validar campos
     if (title.trim() === '' || description.trim() === '')
-        alert("Debe rellenar los campos obligatorios")
+        return alert("Debe rellenar los campos obligatorios")
 
-    //mandar solicitud POST a /new
-    let guardar = await fetch('/new', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution, list_id})
-    })
+    try {
+        //mandar solicitud POST a /new
+        let guardar = await fetch('/new', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution, list_id })
+        })
 
-    let datos = await guardar.json();
-    //addTaskDom(e, datos.id);
+        let datos = await guardar.json();
+        addTaskDom(e, datos.id);
+        clearInputs();
+        //ocultar vista de agregar
+        (() => {
+            e.target.parentNode.parentNode.parentNode.parentNode.classList.toggle('ocultar-con-lugar');
+            d.querySelector('.panel-btn').classList.toggle("ocultar-con-lugar");
+            d.querySelector('.principal').classList.toggle("ocultar");
+        })()
+    } catch (error) {
+        alert('Error al insertar datos')
+    }
 }
 
 function addTaskDom(e, id) {
@@ -103,14 +113,24 @@ function addTaskDom(e, id) {
 
     $template.querySelector('.task-tile').textContent = d.getElementById('title').value;
     $template.querySelector('.task-priority').textContent = prioridad(d.getElementById('prioridad').valueAsNumber);
-    $template.querySelector('.task-dateExpired').textContent = d.getElementById('fecha_limite').value;
+    $template.querySelector('.task-dateExpired').textContent = formatear(d.getElementById('fecha_limite').value);
     $template.querySelector('.description').textContent = d.getElementById('descripcion').value;
     $template.querySelector('.task-creacion').textContent = formatear(new Date());
     $template.querySelector('.task-estado').textContent = null;
 
     let $clone = document.importNode($template, true);
     $fragment.appendChild($clone);
-    $main[0].appendChild($fragment);
+
+    //A cual lista se agregara
+    let list_id = e.target.dataset.id;
+    let sections = d.querySelectorAll(`[data-section_list_id]`)
+
+    let sectionEspecifica = Array.from(sections).filter((elemento) => {
+        return elemento.dataset.section_list_id == list_id;
+    })
+
+    console.log(sectionEspecifica[0].querySelector('.tasks-sin-resolver'))
+    sectionEspecifica[0].querySelector('.tasks-sin-resolver').appendChild($fragment)
 }
 
 //ELIMINAR TAREA
@@ -135,13 +155,20 @@ function eliminarTaskDom(e) {
 //ACTUALIZAR TAREA
 function actualizarTaskDom(e) {
     let padre = e.target.parentNode.parentNode.parentNode;
-    padre.classList.toggle("resuelta")
+    padre.classList.add("resuelta");
+    setTimeout(() => {
+        padre.classList.remove("resuelta");
+        trasladarTarea(e, '.tasks-resueltas');
+    }, 1000);
 }
+
 function actualizarReloj(e) {
     if (e.target.src === "http://localhost:3000/img/not_process.svg") {
         e.target.src = "/img/in_process.svg";
+        trasladarTarea(e, '.tasks-resolviendo');
     } else if (e.target.src === "http://localhost:3000/img/in_process.svg") {
         e.target.src = "/img/not_process.svg";
+        trasladarTarea(e, '.tasks-sin-resolver');
     }
 }
 
@@ -165,4 +192,23 @@ function formatear(date) {
     let month = fecha.getMonth()
     let day = fecha.getDate()
     return `${day}/${month}/${year}`;
+}
+
+function trasladarTarea(event, listaDestino) {
+    //MOVER EL NODO A RESOLVIENDO
+    //Obteno la actual tarea
+    const $tarea = event.target.parentNode.parentNode.parentNode
+    //obtengo la lista completa
+    const $listaTareas = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+    //obtengo donde la voy a pasar
+    const $listaDestino = $listaTareas.querySelector(listaDestino);
+    //la paso
+    $listaDestino.appendChild($tarea);
+}
+
+function clearInputs() {
+    d.getElementById('title').value = '',
+        d.getElementById('descripcion').value = '',
+        d.getElementById('prioridad').value = 1,
+        d.getElementById('fecha_limite').value = new Date();
 }

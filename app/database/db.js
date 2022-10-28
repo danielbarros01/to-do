@@ -12,5 +12,4 @@ db.List = require('../models/List')(db.connection, DataTypes);
 
 //Asociar nuestros modelos
 db.Task.associate(db)
-
 module.exports = db;

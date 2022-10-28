@@ -13,12 +13,6 @@ router.get('/', async (req, res) => {
     res.render('index2' , { tasks, lists } );
 })
 
-router.get('/tasks', async (req, res) => {
-    let tasks = await TaskController.all();
-
-    res.json(tasks);
-})
-
 //Guardar tarea
 router.post('/new', async (req, res) => {
     res.setHeader('Content-type', 'text/plain');
@@ -49,5 +43,21 @@ router.put('/update/:id', (req, res) => {
 
 //Traer listas
 router.get('/lists', ListController.all);
+
+//Guardar lista
+router.post('/newList', async(req,res) => {
+    res.setHeader('Content-type', 'text/plain');
+    const list = await req.body;
+    const guardar = await ListController.save(list)
+
+    res.send(guardar);
+})
+
+//saber cantidad de tareas de una lista
+router.post('/deleteList', async (req,res) => {
+    let consulta = await ListController.delete(req.body.id);
+
+    res.send(consulta);
+});
 
 module.exports = router;

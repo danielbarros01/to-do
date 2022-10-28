@@ -1,4 +1,4 @@
-const { Task } = require('../database/db');
+const { Task, connection} = require('../database/db');
 f = require('../public/js/funcionalidades.js')
 
 module.exports = {

@@ -19,13 +19,20 @@ mixin addBodyTask(tarea)
     p.task-tile= tarea.title
     p.task-priority= tarea.priority2
     p.task-dateExpired= tarea.expiration_date2
-    img.button-abrirDescription(src="/img/arrow_down.svg")
+    .task-options
+        img.btnAbrirOptions(src="/img/more_options.svg")
+        img.button-abrirDescription(src="/img/arrow_down.svg")
 
 mixin addSecondaryBodyTask(tarea)
     p.description= tarea.description
     .task-secondary-final 
         p.task-creacion= tarea.creation_date2
         p.task-estado= tarea.date_of_resolution
+
+mixin btnDelete(tarea)
+    form(action=`/delete` method="POST")
+        input(type="button" value="Eliminar" class="btnDelete" data-id= tarea.id)
+
 
 header.header 
     h1 To-Do 
@@ -45,33 +52,36 @@ aside.panel
 main.principal
     //-Habra muchos de estos sections, seran las listas
     each list in lists
-        section.list-section 
+        section.list-section(data-section_list_id= list.id)
             .list-title
                 button.btnAddTask(data-id= list.id) ADD
                 h3= list.title
                 img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
-            .list-tasks 
+            .list-tasks.ocultar
                 .title-sin-resolver
-                    h4 Resolviendo 
+                    h4 Sin resolver 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
-                .tasks-sin-resolver
+                .tasks-sin-resolver.ocultar
                     each task in tasks
                         if task.status == 'sin resolver' && task.list_id==list.id
                             .task
+                                .task-optionsDelete.ocultar-con-lugar
+                                    +btnDelete(task)
                                 .task-principal
                                     +addHeaderCheckTask(task)
                                     +addBodyTask(task)
                                 .task-secondary.ocultar
                                     +addSecondaryBodyTask(task)
 
-
                 .title-resolviendo
-                    h4 Sin resolver 
+                    h4 Resolviendo 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
-                .tasks-resolviendo
+                .tasks-resolviendo.ocultar
                     each task in tasks
                         if task.status == 'resolviendo' && task.list_id==list.id
                             .task
+                                .task-optionsDelete.ocultar-con-lugar
+                                    +btnDelete(task)
                                 .task-principal
                                     +addHeaderCheckTask(task)
                                     +addBodyTask(task)
@@ -81,26 +91,61 @@ main.principal
                 .title-resueltas
                     h4 Resueltas 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
-                .tasks-resueltas
+                .tasks-resueltas.ocultar
                     each task in tasks
                         if task.status == 'resuelta' && task.list_id==list.id
                             .task
+                                .task-optionsDelete.ocultar-con-lugar
+                                    +btnDelete(task)
                                 .task-principal
                                     +addHeaderCheckTask(task)
                                     +addBodyTask(task)
                                 .task-secondary.ocultar
                                     +addSecondaryBodyTask(task)
 
+                .div-deleteList
+                    img.moreOptionsDeleteList(src="/img/more_options.svg", alt="")
+                    img.btnDeleteList.ocultar-con-lugar(src="/img/icon-delete.svg", alt="" data-list_id= list.id)
+
 //-Vista para agregar tarea
-.container-addTask.ocultar
+.container-addTask.ocultar-con-lugar
     div.addTask
         form
             input(type="text", name="titulo" placeholder="Agregar titulo" id="title" required)
             label(for="fechaLimite") Fecha limite  
-            input(type="date", name="fechaLimite" id="fecha_limite")
+            input(type="date", name="fechaLimite" id="fecha_limite" min="2023-01-01")
             label(for="priority") Priority
-            input.rango(type="range", name="" min="1" max="3" id="prioridad")
+
+            label.custom-range-slider.range
+                input.rango(type="range" max="3" min="1" value="1" id="prioridad")
+
             textarea(name="description", cols="30", rows="10" placeholder="Agregar descripcion" id="descripcion" required)
             .botones-add-task
                 button.btnBlue.saveTask Agregar
                 button.btnRed.cancelTask Cancelar
+
+//-Vista para agregar lista
+include addList
+
+template(id="template-task")
+    .task
+        .task-optionsDelete.ocultar-con-lugar
+            form(action=`/delete` method="POST")
+                input.btnDelete(type="button" value="Eliminar" data-id)
+        .task-principal
+            .div-check
+                input(type="checkbox" class="checkTask" data-id)
+                img.relojProcess(src="/img/not_process.svg" data-id)
+            p.task-tile
+            p.task-priority
+            p.task-dateExpired
+            .task-options
+                img.btnAbrirOptions(src="/img/more_options.svg")
+                img.button-abrirDescription(src="/img/arrow_down.svg")
+        .task-secondary.ocultar
+            p.description
+            .task-secondary-final 
+                p.task-creacion
+                p.task-estado
+
+include templateList
