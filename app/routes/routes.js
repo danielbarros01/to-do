@@ -53,7 +53,7 @@ router.post('/newList', async(req,res) => {
     res.send(guardar);
 })
 
-//saber cantidad de tareas de una lista
+//Elimindar lista
 router.post('/deleteList', async (req,res) => {
     let consulta = await ListController.delete(req.body.id);
 
