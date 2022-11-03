@@ -1,4 +1,4 @@
-const { Task, connection} = require('../database/db');
+const { Task, connection } = require('../database/db');
 f = require('../public/js/funcionalidades.js')
 
 module.exports = {
@@ -26,29 +26,38 @@ module.exports = {
         return tasks;
     },
 
-    async save(newTask) {
-        let crear = await Task.create(newTask)
-        
-        return crear;
+    async save(req, res) {
+        res.setHeader('Content-type', 'text/plain');
+        const task = await req.body;
+
+        let crear = await Task.create(task);
+
+        res.send(crear);
     },
 
-    delete(id) {
-        Task.destroy({ where: { id } })
-            .then(res => console.log('Tarea eliminada'))
-            .catch(err => console.log('error al eliminar tarea', err))
+    async delete(req, res) {
+        const id = req.body.id;
+
+        let eliminar = await Task.destroy({ where: { id } });
+
+        res.json({ id })
     },
 
-    update(task, id) {
-        Task.update({
+    async update(req, res) {
+        const task = req.body;
+        const id = req.params.id;
+
+        let actualizar = await Task.update({
             status: task.status,
-            priority: task.priority
+            priority: task.priority,
+            date_of_resolution: task.date_of_resolution
         }, {
             where: {
                 id
             }
         })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+
+        res.json(actualizar);
     }
 }
 

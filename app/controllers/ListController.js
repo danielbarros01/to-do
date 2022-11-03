@@ -1,4 +1,4 @@
-const { List, Task, connection } = require('../database/db');
+const { List, connection } = require('../database/db');
 
 module.exports = {
     async all(req, res) {
@@ -7,34 +7,49 @@ module.exports = {
         return lists;
     },
 
-    async save(newList) {
-        let crear = await List.create(newList);
+    async save(req, res) {
+        res.setHeader('Content-type', 'text/plain');
+        const list = await req.body;
 
-        return crear;
+        let crear = await List.create(list);
+
+        res.send(crear);
     },
 
-    async tareasDeLista(id) {
+    async delete(req, res) {
+        const data = {};
+        const id = await req.body.id;
+        
+        //verificar si tiene tareas
         const [results, metadata] = await connection.query(
             `SELECT COUNT(*) AS n_tasks FROM tasks AS Task WHERE Task.list_id = ${id}`
         );
+        let tieneTareas = results[0].n_tasks;
+        //-----
 
-        return results[0].n_tasks;
-    },
-
-    async delete(id) {
-        const data = {};
-
-        let tieneTareas = await this.tareasDeLista(id);
-
-        if(tieneTareas>0){
+        if (tieneTareas > 0) {
             data.error = 'La lista tiene tareas'
-        }else{
+        } else {
             data.eliminado = await List.destroy({
-                where: { id }
+                where: { id}
             })
         }
-        console.log(tieneTareas)
-        return data;
+        res.send(data) ;
+    },
+
+    async update(req, res) {
+        const list = req.body;
+        const id = req.params.id;
+
+        let actualizar = await List.update({
+            status: list.status
+        }, {
+            where: {
+                id
+            }
+        })
+
+        res.json(actualizar);
     }
 }
 

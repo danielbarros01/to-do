@@ -6,37 +6,96 @@ const d = document,
     $main = d.querySelectorAll(".principal");
 
 
-d.addEventListener('click', e => {
+d.addEventListener('click',async  e => {
     if (e.target.matches(".btnDelete")) {
         eliminarTask(e);
+        //actualizarStatusList(e);
     }
     if (e.target.matches(".saveTask")) {
         insertarTask(e);
-
+        //actualizarStatusList(e);
     }
 
     if (e.target.matches(".checkTask")) {
         actualizarTarea(e);
         actualizarTaskDom(e)
+        actualizarStatusList(e);
     }
 
     if (e.target.matches(".relojProcess")) {
         actualizarTarea(e);
         actualizarReloj(e);
+        actualizarStatusList(e); //va al ultimo porque necesita checkear despues de que se muevan en el dom
     }
 });
+
+function actualizarStatusList(e) {
+    let $listTasks = e.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+
+    //para saber si hay alguna tareas ya listas
+    //entre al tasks resueltas
+    let listaResueltas = $listTasks.querySelector(".tasks-resueltas");
+    let tieneResueltas = listaResueltas.hasChildNodes();
+    console.log('hay tareas ya resueltas?', tieneResueltas);
+    //--------------
+
+    //para saber si hay alguna tarea en proceso
+    let listaResolviendo = $listTasks.querySelector('.tasks-resolviendo');
+    let tieneResolviendo = listaResolviendo.hasChildNodes();
+    console.log('hay tareas resolviendose?', tieneResolviendo);
+    //
+
+    //para saber si hay alguna tarea sin resolver
+    let listaSinResolver = $listTasks.querySelector('.tasks-sin-resolver');
+    let tieneSinResolver = listaSinResolver.hasChildNodes();
+    console.log('hay tareas sin resolver?', tieneSinResolver);
+    //
+
+    const id = $listTasks.parentNode.dataset.section_list_id;
+    let status = '';
+
+    //Si tiene al menos una tarea resolviendo, la lista se esta resolviendo
+    if (tieneResolviendo) {
+        status = 'resolviendo';
+    }
+    //Si tengo tareas no resueltas, pero ya resolvi un par, estoy resolviendo la lista
+    else if (tieneSinResolver && tieneResueltas) {
+        status = 'resolviendo';
+    }
+    //Si no tiene tareas resolviendose, pero tiene tareas sin resolver, la lista no se esta resolviendo ni resuelta 
+    else if (tieneSinResolver) {
+        status = 'sin resolver';
+    }
+    //si  no tengo tareas sin resolver, sin resolviendo, y hay resueltas, es porque todas estan resueltas
+    else if (tieneResueltas) {
+        status = 'resuelta';
+    }
+
+    console.log(status)
+
+    fetch(`/list/update/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+            status
+        })
+    })
+
+}
 
 //ACTUALIZAR TAREA
 function actualizarTarea(e) {
     const id = e.target.dataset.id;
     let status = "sin resolver",
         priority = e.target.parentNode.parentNode.getElementsByClassName('task-priority')[0].textContent,
-        priorityNumber = 1;
+        priorityNumber = 1,
+        date_of_resolution;
 
     if (e.target.checked) {
         status = "resuelta";
         e.target.nextSibling.src = "http://localhost:3000/img/completed_process.svg";
         e.target.setAttribute("disabled", "")
+        date_of_resolution = new Date();
     } else if (e.target.src === "http://localhost:3000/img/not_process.svg") {
         status = 'resolviendo'
     } else if (e.target.src === "http://localhost:3000/img/in_process.svg") {
@@ -48,15 +107,16 @@ function actualizarTarea(e) {
     else if (priority == 'ALTA') priorityNumber = 3
     else priorityNumber = null
 
-    fetch(`/update/${id}`, {
+    fetch(`/task/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
             status,
-            priority: priorityNumber
+            priority: priorityNumber,
+            date_of_resolution
         })
     })
-        .then(res => console.log("das"))
+        .then(res => console.log(''))
         .catch(err => alert(`Error al actualizar tarea ${err}`))
 }
 
@@ -82,7 +142,7 @@ async function insertarTask(e) {
 
     try {
         //mandar solicitud POST a /new
-        let guardar = await fetch('/new', {
+        let guardar = await fetch('/task/new', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({ title, description, priority, status, expiration_date, creation_date, date_of_resolution, list_id })
@@ -134,17 +194,22 @@ function addTaskDom(e, id) {
 }
 
 //ELIMINAR TAREA
-function eliminarTask(e) {
+async function eliminarTask(e) {
     const opcionesFetch = {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ id: e.target.dataset.id })
     }
 
-    fetch('/delete', opcionesFetch)
-        .then(res => console.log(`Tarea eliminada}`))
-        .then(res => eliminarTaskDom(e))
-        .then(res => idBtnsDeleteArray.pop())
+    try {
+        let eliminar = await fetch('/task/delete', opcionesFetch)
+        eliminarTaskDom(e)
+        idBtnsDeleteArray.pop()
+        console.log(`Tarea eliminada`);
+    } catch (error) {
+        console.log(`Error al eliminar tarea`);
+    }
+
 }
 
 function eliminarTaskDom(e) {
@@ -155,10 +220,10 @@ function eliminarTaskDom(e) {
 //ACTUALIZAR TAREA
 function actualizarTaskDom(e) {
     let padre = e.target.parentNode.parentNode.parentNode;
+    trasladarTarea(e, '.tasks-resueltas');
     padre.classList.add("resuelta");
     setTimeout(() => {
         padre.classList.remove("resuelta");
-        trasladarTarea(e, '.tasks-resueltas');
     }, 1000);
 }
 

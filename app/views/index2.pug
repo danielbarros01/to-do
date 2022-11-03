@@ -64,7 +64,7 @@ main.principal
                 .tasks-sin-resolver.ocultar
                     each task in tasks
                         if task.status == 'sin resolver' && task.list_id==list.id
-                            .task
+                            .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
                                     +btnDelete(task)
                                 .task-principal
@@ -79,7 +79,7 @@ main.principal
                 .tasks-resolviendo.ocultar
                     each task in tasks
                         if task.status == 'resolviendo' && task.list_id==list.id
-                            .task
+                            .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
                                     +btnDelete(task)
                                 .task-principal
@@ -94,7 +94,7 @@ main.principal
                 .tasks-resueltas.ocultar
                     each task in tasks
                         if task.status == 'resuelta' && task.list_id==list.id
-                            .task
+                            .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
                                     +btnDelete(task)
                                 .task-principal

@@ -6,7 +6,9 @@ const express = require('express'),
 const port = process.env.port || 3000,
     publicDir = express.static(`${__dirname}/public`),
     viewsDir = `${__dirname}/views`,
-    routes = require('./routes/routes');
+    routes = require('./routes/routes'),
+    routesTasks = require('./routes/tareas'),
+    routesLists = require('./routes/listas');
 
 app
     .set('views', viewsDir)
@@ -17,6 +19,8 @@ app
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
     .use(publicDir)
-    .use('/', routes);
+    .use('/', routes)
+    .use('/task', routesTasks)
+    .use('/list', routesLists)
 
 module.exports = app;

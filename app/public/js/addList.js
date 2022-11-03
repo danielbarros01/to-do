@@ -14,28 +14,28 @@ d.addEventListener('click', e => {
 })
 
 //ELIMINAR LISTA
-async function deleteList(e){
+async function deleteList(e) {
     const opcionesFetch = {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ id: e.target.dataset.list_id })
     }
 
-    const eliminar = await fetch('/deleteList', opcionesFetch);
+    const eliminar = await fetch('/list/deleteList', opcionesFetch);
     const respuesta = await eliminar.json();
 
     //Si tiene tareas
-    if(respuesta.error){
+    if (respuesta.error) {
         alert('No se puede eliminar, la lista tiene tareas')
     }
     //Si no tiene elimina, devuelve 1, se realizo la eliminacion
-    if(respuesta.eliminado){
+    if (respuesta.eliminado) {
         eliminarListDom(e);
     }
     console.log(respuesta);
 }
 
-function eliminarListDom(e){
+function eliminarListDom(e) {
     const $task = e.target.parentNode.parentNode.parentNode;
     $task.remove();
 }
@@ -43,7 +43,9 @@ function eliminarListDom(e){
 //INSERTAR NUEVA LISTA
 async function insertarLista(e) {
     e.preventDefault();
-    const title = d.getElementById('add_list_title').value;
+    const title = d.getElementById('add_list_title').value,
+        creation_date = new Date(),
+        status = 'sin resolver';
 
     //validar campos
     if (title.trim() === '')
@@ -51,10 +53,10 @@ async function insertarLista(e) {
 
     try {
         //mandar solicitud POST a /newList
-        let guardar = await fetch('/newList', {
+        let guardar = await fetch('/list/newList', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ title })
+            body: JSON.stringify({ title, creation_date, status })
         })
 
         let datos = await guardar.json();
@@ -90,5 +92,4 @@ function insertarListaDom(lista) {
 
     menuLateral.appendChild(linkNewList)
 }
-
 
