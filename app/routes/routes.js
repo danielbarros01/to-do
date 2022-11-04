@@ -5,8 +5,17 @@ const express = require('express'),
 const TaskController = require('../controllers/TaskController');
 const ListController = require('../controllers/ListController');
 
-//Home
+//iniciarSesion
 router.get('/', async (req, res) => {
+    res.render('signin');
+})
+//registrarse
+router.get('/signup', async (req, res) => {
+    res.render('signup');
+})
+
+//Home
+router.get('/home', async (req, res) => {
     let tasks = await TaskController.all();
     let lists = await ListController.all();
     

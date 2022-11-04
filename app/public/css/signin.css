@@ -1,0 +1,68 @@
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.seccion-form{
+    margin: auto;
+    text-align: center;
+
+    width: 40vw;
+    min-width: 370px;
+    height: 400px;
+    padding: 1em;
+    background-color: #5B4B8A;
+}
+.seccion-form form{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.valores{
+    margin: auto;
+    width: 80%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.valores input{
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.valores label{
+    width: 1rem;
+    font-size: 1.4rem;
+}
+
+#btnLogin, #btnRegister{
+    width: 40%;
+    margin: auto;
+    font-size: 1.3rem;
+    cursor: pointer;
+    background-color: #4C3575;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+footer{
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+footer a{
+    margin-left: 4px;
+    font-size: 1.1rem;
+    color: wheat;
+}
