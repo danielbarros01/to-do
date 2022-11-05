@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('lists_tasks', { 
+    await queryInterface.createTable('lists_tasks', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -18,20 +18,28 @@ module.exports = {
       },
 
       creation_date: {
-        type:Sequelize.DATE,
+        type: Sequelize.DATE,
         allowNull: false
       },
 
       date_of_resolution: {
-        type:Sequelize.DATE,
+        type: Sequelize.DATE,
         allowNull: true
       },
 
       status: {
-        type:Sequelize.STRING,
+        type: Sequelize.STRING,
         defaultValue: 'sin resolver'
-      }
+      },
 
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id"
+        }
+      }
     });
   },
 

@@ -3,6 +3,7 @@ const express = require('express'),
 
 //Importar controladores
 const ListController = require('../controllers/ListController');
+const auth = require('../middlewares/auth')
 
 //Traer listas
 router.get('/lists', ListController.all);

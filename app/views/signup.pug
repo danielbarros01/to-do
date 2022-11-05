@@ -11,14 +11,14 @@ html(lang="en")
         main
             section.seccion-form 
                 h2 Registrese
-                form(action="") 
+                form(action="/register" method="POST")
                     .valores
                         label(for="") Nombre:
-                        input(type="email", name="")
+                        input(type="text", name="name")
                         label(for="") Email:
-                        input(type="email", name="")
+                        input(type="email", name="email")
                         label(for="") Contraseña: 
-                        input(type="password", name="")
+                        input(type="password", name="password")
                     input(type="submit" value="Registrarse" id="btnRegister")
             footer 
-                a(href="/") Ir al inicio
+                a(href="/login") Ir al inicio

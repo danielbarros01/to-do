@@ -1,0 +1,63 @@
+'use strict';
+
+const { User } = require('../../models/index'),
+  bcrypt = require('bcrypt'),
+  authConfig = require('../../../config/auth')
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    return Promise.all([
+      
+      User.create({
+        name: "Anton",
+        email: "azr@azr.es",
+        password: bcrypt.hashSync("123456", Number(authConfig.rounds)),
+        lists: [
+          {
+            title: "Escuela", 
+            creation_date: new Date(), 
+            status: 'sin resolver',
+          },
+          {
+            title: "Universidad", 
+            creation_date: new Date(), 
+            status: 'sin resolver',
+          },
+        ]
+      }, {
+        include: "lists"
+      }),
+
+      User.create({
+        name: "Lucia",
+        email: "lucia@gmail.com",
+        password: bcrypt.hashSync("123456", Number(authConfig.rounds)),
+        posts: [
+          {
+            title: "Escuela", 
+            creation_date: new Date(), 
+            status: 'sin resolver',
+          },
+          {
+            title: "Universidad", 
+            creation_date: new Date(), 
+            status: 'sin resolver',
+          },
+        ]
+      }, {
+        include: "lists"
+      })
+
+
+    ])
+
+  },
+
+  async down(queryInterface, Sequelize) {
+    return Promise.all([
+      queryInterface.bulkDelete('lists', null, {}),
+      queryInterface.bulkDelete('users', null, {})
+    ])
+  }
+};

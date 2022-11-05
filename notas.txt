@@ -5,7 +5,7 @@
 npx sequelize-cli model:generate --name Task --attributes title:string,description:string,priority:string,status:string,expiration_date:date,creation_date:date,date_of_resolution:date
 
 //Crear Seeds
-npx sequelize-cli seed:generate --name create-users
+npx sequelize-cli seed:generate --name create-lists
 npx sequelize-cli seed:generate --name more-users
 npx sequelize-cli seed:generate --name create-some-addresses
 npx sequelize-cli seed:generate --name mucho-more-users

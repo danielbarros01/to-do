@@ -1,10 +1,11 @@
-const { List, connection } = require('../database/db');
+const { List, connection } = require('../models/index');
 
 module.exports = {
     async all(req, res) {
         let lists = await List.findAll();
 
         return lists;
+        //res.json(lists)
     },
 
     async save(req, res) {

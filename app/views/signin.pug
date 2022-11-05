@@ -11,13 +11,29 @@ html(lang="en")
         main
             section.seccion-form 
                 h2 Bienvenido
-                form(action="") 
+                form(action="/login" method="POST") 
                     .valores
                         label(for="") Email:
-                        input(type="email", name="")
+                        input(type="email", name="email")
                         label(for="") Contraseña: 
-                        input(type="password", name="")
-                    input(type="submit" value="Iniciar Sesion" id="btnLogin")
+                        input(type="password", name="password")
+                    button(type="submit" id="btnLogin") Iniciar Sesion
             footer 
                 p No estas registrado?
-                a(href="/signup") Registrarse
+                a(href="/register") Registrarse
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+script.
+    if(#{alert} == true)
+        Swal.fire({
+            title: "#{alertTitle}",
+            text: "#{alertMessage}",
+            icon: "#{alertIcon}",
+            showConfirmButton: #{showConfirmButton},
+            timer: #{timer},
+        })
+            .then(() => {
+                window.location = "/#{ruta}";
+            })
+ 
