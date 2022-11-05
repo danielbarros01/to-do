@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class List extends Model {
     static associate(models) {
-      
+      List.hasMany(models.Task, {as: "tasks", foreignKey: "list_id"})
     }
   }
   List.init({

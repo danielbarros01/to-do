@@ -5,7 +5,8 @@ const express = require('express'),
 const TaskController = require('../controllers/TaskController');
 const ListController = require('../controllers/ListController');
 const AuthController = require('../controllers/AuthController2');
-const auth = require('../middlewares/auth')
+const auth = require('../middlewares/auth');
+const UserController = require('../controllers/UserController');
 
 //iniciarSesion
 router.get('/login', async (req, res) => {
@@ -31,11 +32,7 @@ router.get('/logout', AuthController.logout)
 
 
 //Home
-router.get('/home', auth.isAuthenticated ,async (req, res) => {
-    let tasks = await TaskController.all();
-    let lists = await ListController.all();
-    
-    res.render('index2' , { tasks, lists ,user:req.user} );
-})
+router.get('/home', auth.isAuthenticated , UserController.cargarHome)
 
+router.get('/pruebas', UserController.cargarHome)
 module.exports = router;

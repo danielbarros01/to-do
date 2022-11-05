@@ -63,7 +63,7 @@ main.principal
                     h4 Sin resolver 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
                 .tasks-sin-resolver.ocultar
-                    each task in tasks
+                    each task in list.tasks
                         if task.status == 'sin resolver' && task.list_id==list.id
                             .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
@@ -78,7 +78,7 @@ main.principal
                     h4 Resolviendo 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
                 .tasks-resolviendo.ocultar
-                    each task in tasks
+                    each task in list.tasks
                         if task.status == 'resolviendo' && task.list_id==list.id
                             .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
@@ -93,7 +93,7 @@ main.principal
                     h4 Resueltas 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
                 .tasks-resueltas.ocultar
-                    each task in tasks
+                    each task in list.tasks
                         if task.status == 'resuelta' && task.list_id==list.id
                             .task(data-listId=list.id)
                                 .task-optionsDelete.ocultar-con-lugar
