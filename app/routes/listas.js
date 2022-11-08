@@ -9,7 +9,7 @@ const auth = require('../middlewares/auth')
 router.get('/lists', ListController.all);
 
 //Guardar lista
-router.post('/newList', ListController.save)
+router.post('/newList', auth.isAuthenticated ,ListController.save)
 
 //Elimindar lista
 router.post('/deleteList', ListController.delete);

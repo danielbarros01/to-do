@@ -10,16 +10,16 @@ module.exports = {
         });
 
         tasks.forEach(task => {
-            task.expiration_date2 = f.formatear(new Date(task.expiration_date))
-            task.creation_date2 = f.formatear(new Date(task.creation_date))
+            task.expiration_date = f.formatear(new Date(task.expiration_date))
+            task.creation_date = f.formatear(new Date(task.creation_date))
             switch (task.priority) {
-                case '1': task.priority2 = "BAJA"
+                case '1': task.priority = "BAJA"
                     break;
-                case '2': task.priority2 = "MEDIA"
+                case '2': task.priority = "MEDIA"
                     break;
-                case '3': task.priority2 = "ALTA"
+                case '3': task.priority = "ALTA"
                     break;
-                default: task.priority2 = "SIN PRIORIDAD"
+                default: task.priority = "SIN PRIORIDAD"
             }
         })
 

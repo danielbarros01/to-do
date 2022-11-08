@@ -17,7 +17,7 @@ mixin addHeaderCheckTask(tarea)
 
 mixin addBodyTask(tarea)
     p.task-tile= tarea.title
-    p.task-priority= tarea.priority2
+    p.task-priority= tarea.priority
     p.task-dateExpired= tarea.expiration_date2
     .task-options
         img.btnAbrirOptions(src="/img/more_options.svg")
@@ -26,8 +26,8 @@ mixin addBodyTask(tarea)
 mixin addSecondaryBodyTask(tarea)
     p.description= tarea.description
     .task-secondary-final 
-        p.task-creacion= tarea.creation_date2
-        p.task-estado= tarea.date_of_resolution
+        p.task-creacion= `Creada el: ${tarea.creation_date2}`
+        p.task-estado= `Realizada el: ${tarea.date_of_resolution2}`
 
 mixin btnDelete(tarea)
     form(action=`/delete` method="POST")

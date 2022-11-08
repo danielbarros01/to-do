@@ -1,4 +1,4 @@
-const { List, connection } = require('../models/index');
+const { List, sequelize } = require('../models/index');
 
 module.exports = {
     async all(req, res) {
@@ -12,8 +12,14 @@ module.exports = {
         res.setHeader('Content-type', 'text/plain');
         const list = await req.body;
 
-        let crear = await List.create(list);
+        let crear = await List.create({
+            title: list.title,
+            creation_date: list.creation_date,
+            status: list.status,
+            user_id: req.user.id
+        });
 
+        console.log(req.user)
         res.send(crear);
     },
 
@@ -22,7 +28,7 @@ module.exports = {
         const id = await req.body.id;
         
         //verificar si tiene tareas
-        const [results, metadata] = await connection.query(
+        const [results, metadata] = await sequelize.query(
             `SELECT COUNT(*) AS n_tasks FROM tasks AS Task WHERE Task.list_id = ${id}`
         );
         let tieneTareas = results[0].n_tasks;
@@ -43,7 +49,8 @@ module.exports = {
         const id = req.params.id;
 
         let actualizar = await List.update({
-            status: list.status
+            status: list.status,
+            date_of_resolution: list.date_of_resolution
         }, {
             where: {
                 id

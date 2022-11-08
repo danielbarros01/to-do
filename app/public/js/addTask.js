@@ -53,6 +53,7 @@ function actualizarStatusList(e) {
 
     const id = $listTasks.parentNode.dataset.section_list_id;
     let status = '';
+    let date_of_resolution;
 
     //Si tiene al menos una tarea resolviendo, la lista se esta resolviendo
     if (tieneResolviendo) {
@@ -69,6 +70,7 @@ function actualizarStatusList(e) {
     //si  no tengo tareas sin resolver, sin resolviendo, y hay resueltas, es porque todas estan resueltas
     else if (tieneResueltas) {
         status = 'resuelta';
+        date_of_resolution = new Date();
     }
 
     console.log(status)
@@ -77,7 +79,7 @@ function actualizarStatusList(e) {
         method: 'PUT',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
-            status
+            status, date_of_resolution
         })
     })
 
