@@ -127,8 +127,9 @@
 }
 
 .task-principal{
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 10% 50% 10% 20% 10%
 }
 
 .task-check{
@@ -303,6 +304,16 @@ input[type=range] {
 /* Task options */
 .btnAbrirOptions{
     cursor: pointer;
+    width: 30px;
+}
+
+.task-options{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    right: -0.4vw;
+    top: -0.5rem;
 }
 
 .task-optionsDelete{
@@ -312,7 +323,7 @@ input[type=range] {
     justify-content: flex-end;
     position: relative;
     top: -9px;
-    left: 10vh;
+    left: 8.3vh;
     height: 0;
 }
 
@@ -332,4 +343,13 @@ input[type=range] {
 /* Tarea resuelta */
 .resuelta{
     background-color: #54B435;
+}
+
+
+/* Task references */
+.taskReferences{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 10% 50% 12% 25%;
+    background-color: #5B4B8A;
 }

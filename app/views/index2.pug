@@ -33,6 +33,12 @@ mixin btnDelete(tarea)
     form(action=`/delete` method="POST")
         input(type="button" value="Eliminar" class="btnDelete" data-id= tarea.id)
 
+mixin addReferencesTasks 
+    .taskReferences 
+        p checks 
+        p title 
+        button(id="btnOrdenPrioridad" data-orden = 'menorAMayor') PRIORIDAD
+        button(id="btnOrdenExpiration" data-orden = 'ASC') EXPIRACION
 
 header.header 
     h1 To-Do 
@@ -48,7 +54,7 @@ aside.panel
         a.list Todas
         each list in lists
             a.list= list.title
-        a(href="/logout") Cerrar Sesion
+        a(href="/logout").list.btnCerrarSesion Cerrar Sesion
 
 main.principal
     //-Habra muchos de estos sections, seran las listas
@@ -59,6 +65,7 @@ main.principal
                 h3= list.title
                 img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
             .list-tasks.ocultar
+                +addReferencesTasks
                 .title-sin-resolver
                     h4 Sin resolver 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")

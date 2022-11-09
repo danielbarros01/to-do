@@ -8,6 +8,7 @@ const AuthController = require('../controllers/AuthController2');
 const auth = require('../middlewares/auth');
 const UserController = require('../controllers/UserController');
 
+
 //iniciarSesion
 router.get('/login', async (req, res) => {
     res.render('signin', {alert:false});
@@ -35,4 +36,5 @@ router.get('/logout', AuthController.logout)
 router.get('/home', auth.isAuthenticated , UserController.cargarHome)
 
 router.get('/pruebas', UserController.cargarHome)
+
 module.exports = router;

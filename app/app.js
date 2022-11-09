@@ -3,14 +3,18 @@ const express = require('express'),
     //sequelize
     pug = require('pug'),
     cookieParser = require('cookie-parser'),
-    eliminarCache = require('./middlewares/eliminarCache');;
+    eliminarCache = require('./middlewares/eliminarCache'),
+    passport = require("passport");
 
 const port = process.env.port || 3000,
     publicDir = express.static(`${__dirname}/public`),
     viewsDir = `${__dirname}/views`,
     routes = require('./routes/routes'),
     routesTasks = require('./routes/tareas'),
-    routesLists = require('./routes/listas');
+    routesLists = require('./routes/listas'),
+
+    routesAuth = require('./routes/auth'),
+    googleMiddleware = require("./middlewares/google");
 
 app
     .set('views', viewsDir)
@@ -19,6 +23,7 @@ app
 
 app
     .use(express.json())
+    .use(passport.initialize())
     .use(express.urlencoded({ extended: true }))
     .use(cookieParser())
     .use(publicDir)
@@ -27,4 +32,16 @@ app
     .use('/list', routesLists)
     .use(eliminarCache.deleteCache)
 
+
+app.use(
+    "/auth",
+    passport.authenticate("auth-google", {
+        scope: [
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email",
+        ],
+        session: false,
+    }),
+    routesAuth
+);
 module.exports = app;

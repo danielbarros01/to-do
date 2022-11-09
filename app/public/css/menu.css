@@ -76,3 +76,11 @@
 .btnAddList:hover{
     filter: opacity(0.7);
 }
+
+.btnCerrarSesion{
+    color: rgb(255, 175, 175);
+    text-decoration: none;
+    margin-top: 2rem;
+    border-top: 2px solid #b988ff;
+    border-bottom: 2px solid #b988ff;
+}

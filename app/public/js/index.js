@@ -1,6 +1,7 @@
 import {openDescription, viewAddTask, ocultar} from "/js/tasks.js";
 import hamburguerMenu from "/js/menu.js";
 import { rango } from "/js/rango.js";
+import { orderBy } from "./orderTasks.js";
 
 const d = document;
 
@@ -10,4 +11,5 @@ d.addEventListener("DOMContentLoaded", e => {
     viewAddTask('.btnAddTask');
     ocultar();
     rango();
+    orderBy();
 })
