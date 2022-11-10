@@ -18,11 +18,13 @@ module.exports = {
             title: "Escuela", 
             creation_date: new Date(), 
             status: 'sin resolver',
+            archivada:false
           },
           {
             title: "Universidad", 
             creation_date: new Date(), 
             status: 'sin resolver',
+            archivada:false
           },
         ]
       }, {
@@ -33,16 +35,18 @@ module.exports = {
         name: "Lucia",
         email: "lucia@gmail.com",
         password: bcrypt.hashSync("123456", Number(authConfig.rounds)),
-        posts: [
+        lists: [
           {
             title: "Escuela", 
             creation_date: new Date(), 
             status: 'sin resolver',
+            archivada:false
           },
           {
             title: "Universidad", 
             creation_date: new Date(), 
             status: 'sin resolver',
+            archivada:false
           },
         ]
       }, {

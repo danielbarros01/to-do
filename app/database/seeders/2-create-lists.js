@@ -13,11 +13,9 @@ module.exports = {
 
     users.forEach(user => {
       lists.push(
-        { title: "Escuela", creation_date: new Date(), status: 'sin resolver', user_id: user.id },
-        { title: "Universidad", creation_date: new Date(), status: 'sin resolver', user_id: user.id },
-        { title: "Gimnasia", creation_date: new Date(), status: 'sin resolver', user_id: user.id },
-        { title: "Proyectos", creation_date: new Date(), status: 'sin resolver', user_id: user.id },
-        { title: "Casa", creation_date: new Date(), status: 'sin resolver', user_id: user.id }
+        { title: "Gimnasia", creation_date: new Date(), status: 'sin resolver', archivada:false, user_id: user.id },
+        { title: "Proyectos", creation_date: new Date(), status: 'sin resolver', archivada:false, user_id: user.id },
+        { title: "Casa", creation_date: new Date(), status: 'sin resolver', archivada:false, user_id: user.id }
       )
     });
 

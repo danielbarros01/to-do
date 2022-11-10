@@ -1,0 +1,151 @@
+//-Agregar tarea
+mixin addHeaderCheckTask(tarea)
+        if tarea.status == 'resuelta'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}` checked disabled)
+                img.relojProcess(src="/img/completed_process.svg")
+        else if tarea.status == 'sin resolver'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/not_process.svg" data-id=`${tarea.id}`)
+        else if tarea.status == 'resolviendo'
+            .div-check
+                input(type="checkbox" class="checkTask" data-id=`${tarea.id}`)
+                img.relojProcess(src="/img/in_process.svg" data-id=`${tarea.id}`)
+
+mixin addBodyTask(tarea)
+    p.task-tile= tarea.title
+    p.task-priority= tarea.priority
+    p.task-dateExpired= tarea.expiration_date2
+    .task-options
+        img.btnAbrirOptions(src="/img/more_options.svg")
+        img.button-abrirDescription(src="/img/arrow_down.svg")
+
+mixin addSecondaryBodyTask(tarea)
+    p.description= tarea.description
+    .task-secondary-final 
+        p.task-creacion= `Creada el: ${tarea.creation_date2}`
+        p.task-estado= `Realizada el: ${tarea.date_of_resolution2}`
+
+mixin btnDelete(tarea)
+    form(action=`/delete` method="POST")
+        input(type="button" value="Eliminar" class="btnDelete" data-id= tarea.id)
+
+mixin addReferencesTasks 
+    .taskReferences 
+        p checks 
+        p title 
+        button(id="btnOrdenPrioridad" data-orden = 'menorAMayor') PRIORIDAD
+        button(id="btnOrdenExpiration" data-orden = 'ASC') EXPIRACION
+
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/menu.css")
+        link(rel="stylesheet", href="/css/tareas.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css" integrity="sha512-+mlclc5Q/eHs49oIOCxnnENudJWuNqX5AogCiqRBgKnpoplPzETg2fkgBFVC6WYUVxYYljuxPNG8RE7yBy1K+g==" crossorigin="anonymous" referrerpolicy="no-referrer")
+        script(src="/js/indexArchivadas.js" type="module" defer) 
+        script(src="/js/addTask.js" type="module" defer) 
+        script(src="/js/addList.js" type="module" defer) 
+        title To-Do
+    body 
+        header.header 
+            h1 To-Do 
+
+        //-Menu lateral
+        button.panel-btn.hamburger.hamburger--arrow(type="button")
+            span.hamburger-box
+                span.hamburger-inner(id="hamburger-inner")
+
+        aside.panel
+            nav.menu
+                a(href="/home").list Todas
+                each list in lists
+                    a.list= list.title
+                a(href="/logout").list.btnCerrarSesion Cerrar Sesion
+
+        main.principal
+            //-Habra muchos de estos sections, seran las listas
+            each list in lists
+                section.list-section(data-section_list_id= list.id)
+                    .list-title
+                        h3= list.title
+                        img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
+                    .list-tasks.ocultar
+                        +addReferencesTasks
+                        .title-sin-resolver
+                            h4 Sin resolver 
+                            img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                        .tasks-sin-resolver.ocultar
+                            each task in list.tasks
+                                if task.status == 'sin resolver' && task.list_id==list.id
+                                    .task(data-listId=list.id)
+                                        .task-optionsDelete.ocultar-con-lugar
+                                            +btnDelete(task)
+                                        .task-principal
+                                            +addHeaderCheckTask(task)
+                                            +addBodyTask(task)
+                                        .task-secondary.ocultar
+                                            +addSecondaryBodyTask(task)
+
+                        .title-resolviendo
+                            h4 Resolviendo 
+                            img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                        .tasks-resolviendo.ocultar
+                            each task in list.tasks
+                                if task.status == 'resolviendo' && task.list_id==list.id
+                                    .task(data-listId=list.id)
+                                        .task-optionsDelete.ocultar-con-lugar
+                                            +btnDelete(task)
+                                        .task-principal
+                                            +addHeaderCheckTask(task)
+                                            +addBodyTask(task)
+                                        .task-secondary.ocultar
+                                            +addSecondaryBodyTask(task)
+
+                        .title-resueltas
+                            h4 Resueltas 
+                            img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
+                        .tasks-resueltas.ocultar
+                            each task in list.tasks
+                                if task.status == 'resuelta' && task.list_id==list.id
+                                    .task(data-listId=list.id)
+                                        .task-optionsDelete.ocultar-con-lugar
+                                            +btnDelete(task)
+                                        .task-principal
+                                            +addHeaderCheckTask(task)
+                                            +addBodyTask(task)
+                                        .task-secondary.ocultar
+                                            +addSecondaryBodyTask(task)
+
+                        .div-deleteList
+                            img.moreOptionsDeleteList(src="/img/more_options.svg", alt="")
+                            img.btnDeleteList.ocultar-con-lugar(src="/img/icon-delete.svg", alt="" data-list_id= list.id)
+                            img.btnArchivar(src="/img/archive-icon.svg", alt="" data-list_id= list.id)
+
+        template(id="template-task")
+            .task
+                .task-optionsDelete.ocultar-con-lugar
+                    form(action=`/delete` method="POST")
+                        input.btnDelete(type="button" value="Eliminar" data-id)
+                .task-principal
+                    .div-check
+                        input(type="checkbox" class="checkTask" data-id)
+                        img.relojProcess(src="/img/not_process.svg" data-id)
+                    p.task-tile
+                    p.task-priority
+                    p.task-dateExpired
+                    .task-options
+                        img.btnAbrirOptions(src="/img/more_options.svg")
+                        img.button-abrirDescription(src="/img/arrow_down.svg")
+                .task-secondary.ocultar
+                    p.description
+                    .task-secondary-final 
+                        p.task-creacion
+                        p.task-estado
+        
+        include templateList

@@ -18,7 +18,10 @@ module.exports = {
 
         //Traer listas con sus tareas
         let listas2 = await List.findAll({
-            where: { user_id: user.id },
+            where: { 
+                user_id: user.id,
+                archivada: 0
+             },
             include: {
                 association: 'tasks'
             }

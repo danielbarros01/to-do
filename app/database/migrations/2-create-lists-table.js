@@ -32,6 +32,11 @@ module.exports = {
         defaultValue: 'sin resolver'
       },
 
+      archivada: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

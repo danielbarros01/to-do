@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     creation_date: DataTypes.DATE,
     date_of_resolution: DataTypes.DATE,
     status: DataTypes.STRING,
+    archivada: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'List',

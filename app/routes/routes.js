@@ -31,10 +31,8 @@ router.post('/register', AuthController.register)
 router.get('/logout', AuthController.logout)
 //------
 
-
 //Home
 router.get('/home', auth.isAuthenticated , UserController.cargarHome)
 
-router.get('/pruebas', UserController.cargarHome)
 
 module.exports = router;
