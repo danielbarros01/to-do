@@ -44,4 +44,18 @@ app.use(
     }),
     routesAuth
 );
+
+app.use((req, res, next) => {
+    let error = new Error(),
+        locals = {
+            title: 'Error 404',
+            description: 'Recurso no encontrado',
+            error: error
+        };
+
+    error.status = 404;
+    res.redirect('/home');
+    next();
+});
+
 module.exports = app;
