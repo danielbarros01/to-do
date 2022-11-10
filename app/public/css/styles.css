@@ -18,7 +18,11 @@ html{
 body{
     margin: 0;
     overflow-x: hidden;
-    background-color: #371B58;
+    /* background-color: #371B58; */
+    background: #7352ac;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3c1053, #4C3575);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3c1053, #4C3575); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .ocultar{

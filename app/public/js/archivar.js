@@ -12,7 +12,6 @@ export function archivar() {
 }
 
 async function archivarse(e) {
-    console.log('archivar');
 
     //traer info sobre si lista tiene todas sus tareas listas
     const id = e.target.dataset.list_id;
@@ -21,19 +20,17 @@ async function archivarse(e) {
 
     let tareas = await respuesta.json();
 
-    let archivable = 0;
+    let archivable = 1;
 
     (tareas.tareas).forEach(task => {
         if (task.status == 'sin resolver' || task.status == 'resolviendo') {
             archivable = 0;
-        } else {
-            archivable = 1;
         }
     });
 
-    if(archivable == 0){
+    if (archivable == 0) {
         return alert('Tienen que estar todas las tareas resueltas para poder archivar la lista');
-    }else if (archivable == 1) {
+    } else if (archivable == 1) {
         fetch(`/list/updateArchive/${id}`, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
@@ -46,18 +43,9 @@ async function archivarse(e) {
             alert('Lista archivada');
         })
     }
-
-    console.log(tareas.tareas)
-
-    /* if(sePuedeArchivar){
-        console.log('archivada')
-    }else{
-
-    } */
-
 }
 
-async function desarchivarse(e){
+async function desarchivarse(e) {
     const id = e.target.dataset.list_id;
 
     fetch(`/list/updateArchive/${id}`, {

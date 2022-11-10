@@ -7,9 +7,12 @@
 
     /* Parte de arriba */
 .list-section{
-    border: 1px solid #371B58;
+    margin: 3rem;
     background-color: #7858A6;
     padding: 0.4rem;
+    box-shadow: 8px 8px 10px -4px rgba(0,0,0,0.51);
+    -webkit-box-shadow: 8px 8px 10px -4px rgba(0,0,0,0.51);
+    -moz-box-shadow: 8px 8px 10px -4px rgba(0,0,0,0.51);
 }
 
 .btnOpenList{
@@ -76,7 +79,7 @@
     display: flex;
     justify-content: center;
 
-    background-color: #4C3575;
+    background-color: #3c1053;
 
     border-color: #371B58;
     border-style: solid;
@@ -119,8 +122,9 @@
 /* TAREAS */
 .task{    
     margin-top: -1px;
-    background-color: #5B4B8A;
-    border: 1px solid #371B58;
+    background: -webkit-linear-gradient(to right, #3c1053,#531774,#642fbf , #4C3575);
+    background: linear-gradient(to right, #3c1053,#531774 ,#642fbf ,#604294);
+    border: 1px solid #3c1053;
     padding: 0.5rem;
     padding-bottom: 0;
     margin-bottom: 4px;
@@ -362,7 +366,21 @@ input[type=range] {
     text-align: center;
     display: grid;
     grid-template-columns: 10% 50% 12% 25%;
-    background-color: #5B4B8A;
+    background: -webkit-linear-gradient(to right, #3c1053, #4C3575);
+    background: linear-gradient(to right, #3c1053,#531774 ,#4C3575);
+}
+
+#btnOrdenPrioridad, #btnOrdenExpiration{
+    background: #642fbf4f;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: .5s ease;
+}
+
+#btnOrdenPrioridad:hover, #btnOrdenExpiration:hover{
+    border-radius: 0px;
+    cursor: pointer;
 }
 
 /* Add task a user */

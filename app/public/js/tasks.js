@@ -57,8 +57,6 @@ export function viewAddTask(btnAdd) {
             const vistaAgregar = e.target.parentNode.parentNode.parentNode.nextSibling;
             const id = e.target.dataset.id;
 
-            bloquearFechas();
-
             vistaAgregar.classList.toggle("ocultar-con-lugar");
             vistaAgregar.querySelector(".saveTask").dataset.id = id;
             d.querySelector('.panel-btn').classList.toggle("ocultar-con-lugar");
@@ -73,7 +71,7 @@ export function viewAddTask(btnAdd) {
     })
 }
 
-function bloquearFechas() {
+export function bloquearFechas() {
     //bloquear fechas viejas
     var fecha = new Date();
     var anio = fecha.getFullYear();
@@ -84,4 +82,5 @@ function bloquearFechas() {
     { var mes = "0" + _mes; }
     else { var mes = _mes.toString() }
     document.getElementById("fecha_limite").min = anio + '-' + mes + '-' + dia;
+    document.getElementById("fecha_limiteTaskForUser").min = anio + '-' + mes + '-' + dia;
 }

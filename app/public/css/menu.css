@@ -3,8 +3,6 @@
     z-index: 997;
     top: 0;
     padding: 1em;
-    background-color: #371B58;
-    color: var(--second-color);
 }
 
 .header h1{
@@ -20,7 +18,7 @@
     left: 0;
     width: 25vw;
     overflow-y: auto; /* en y necesito que se adapte, genera barra de scroll*/
-    background-color: #4C3575;
+    background-color: #3c1053;
     transform: translate(-100%,0);
     transition: transform .3s ease;
 }

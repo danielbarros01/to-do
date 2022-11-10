@@ -55,6 +55,7 @@ module.exports = {
               }
         })
 
+        console.log(listas2)
         //res.json(listas2)
         res.render('index2' , {lists: listas2, users});
     }

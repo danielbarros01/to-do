@@ -27,6 +27,10 @@ async function insertarTaskForUser(e) {
     if (title.trim() === '' || description.trim() === '')
         return alert("Debe rellenar los campos obligatorios")
 
+    if (expiration_date == '') {
+        return alert('Fecha requerida')
+    }
+
     try {
         //mandar solicitud POST a /new
         let guardar = await fetch('/task/newTaskForUser', {
@@ -36,7 +40,7 @@ async function insertarTaskForUser(e) {
         })
 
         let datos = await guardar.json();
-        alert(`Tarea ${datos.title} asignada con exito al usuario con email ${d.getElementById('seleccionUserAddTask').textContent}`)
+        alert(`Tarea ${datos.title} asignada con exito al usuario`)
         clearInputs();
         //ocultar vista de agregar
         (() => {
@@ -51,5 +55,5 @@ function clearInputs() {
     d.getElementById('titleTaskForUser').value = '',
         d.getElementById('descripcionTaskForUser').value = '',
         d.getElementById('prioridadTaskForUser').value = 1,
-        d.getElementById('fecha_limiteTaskForUser').value = new Date();
+        d.getElementById('fecha_limiteTaskForUser').value = '';
 }

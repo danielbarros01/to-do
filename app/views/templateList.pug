@@ -1,3 +1,10 @@
+mixin addReferencesTasks 
+    .taskReferences 
+        p checks 
+        p title 
+        button(id="btnOrdenPrioridad" data-orden = 'menorAMayor') PRIORIDAD
+        button(id="btnOrdenExpiration" data-orden = 'ASC') EXPIRACION
+
 mixin taskDatosElementsDom 
     .task
         .task-optionsDelete.ocultar-con-lugar
@@ -26,6 +33,7 @@ template(id="template-list")
                 h3.h3-title-list
                 img.btnOpenList(src="/img/arrow_view_list.svg" id="openList")
             .list-tasks
+                +addReferencesTasks
                 .title-sin-resolver
                     h4 Sin resolver 
                     img.btnViewTasks(src="/img/arrow_view_tasks.svg", alt="")
@@ -44,3 +52,4 @@ template(id="template-list")
                 .div-deleteList
                     img.moreOptionsDeleteList(src="/img/more_options.svg", alt="")
                     img.btnDeleteList.ocultar-con-lugar(src="/img/icon-delete.svg", alt="" data-list_id)
+                    img.btnArchivar(src="/img/archive-icon.svg", alt="" data-list_id)

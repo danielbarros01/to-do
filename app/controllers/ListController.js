@@ -16,6 +16,7 @@ module.exports = {
             title: list.title,
             creation_date: list.creation_date,
             status: list.status,
+            archivada: list.archivada,
             user_id: req.user.id
         });
 

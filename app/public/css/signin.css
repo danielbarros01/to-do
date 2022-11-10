@@ -15,6 +15,12 @@ main{
     height: 400px;
     padding: 1em;
     background-color: #5B4B8A;
+
+    box-shadow: 11px 10px 19px -5px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 11px 10px 19px -5px rgba(0,0,0,0.6);
+    -moz-box-shadow: 11px 10px 19px -5px rgba(0,0,0,0.6);
+
+
 }
 .seccion-form form{
     width: 100%;
@@ -53,6 +59,10 @@ main{
     color: white;
     border: none;
     padding: 10px;
+}
+
+#btnLogin:hover, #btnRegister:hover{
+    opacity: 0.8;
 }
 
 footer{

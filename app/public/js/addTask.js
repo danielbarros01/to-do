@@ -142,6 +142,10 @@ async function insertarTask(e) {
     if (title.trim() === '' || description.trim() === '')
         return alert("Debe rellenar los campos obligatorios")
 
+    if(expiration_date == ''){
+        return alert('Fecha requerida')
+    }
+
     try {
         //mandar solicitud POST a /new
         let guardar = await fetch('/task/new', {

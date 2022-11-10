@@ -56,7 +56,7 @@ async function insertarLista(e) {
         let guardar = await fetch('/list/newList', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ title, creation_date, status })
+            body: JSON.stringify({ title, creation_date, status , archivada: false})
         })
 
         let datos = await guardar.json();
@@ -79,7 +79,8 @@ function insertarListaDom(lista) {
     $template2.querySelector('.btnAddTask').dataset.id = newId;
     $template2.querySelector('.h3-title-list').textContent = lista.title;
     $template2.querySelector('.btnDeleteList').dataset.list_id = newId;
-
+    $template2.querySelector('.btnArchivar').dataset.list_id = newId;
+    
     let $clone = document.importNode($template2, true);
     $fragment2.appendChild($clone);
     d.querySelector('.principal').appendChild($fragment2);
@@ -90,6 +91,9 @@ function insertarListaDom(lista) {
     linkNewList.classList.add('list');
     linkNewList.textContent = lista.title;
 
-    menuLateral.appendChild(linkNewList)
+    let btnArchivadas = menuLateral.querySelector('.archives');
+
+    //menuLateral.appendChild(linkNewList)
+    btnArchivadas.insertAdjacentElement('beforebegin', linkNewList);
 }
 
