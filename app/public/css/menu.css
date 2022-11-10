@@ -62,6 +62,8 @@
     padding: 10px;
     font-size: 1.6rem;
     cursor: pointer;
+    color: white;
+    text-decoration: none;
 }
 
 .list:hover{

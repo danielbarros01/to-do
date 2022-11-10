@@ -55,6 +55,7 @@ aside.panel
         each list in lists
             a.list= list.title
         a(href="/list/archive").list Archivadas
+        a.list.btnAsignar Asignar a usuario
         a(href="/logout").list.btnCerrarSesion Cerrar Sesion
 
 main.principal
@@ -133,6 +134,28 @@ main.principal
             .botones-add-task
                 button.btnBlue.saveTask Agregar
                 button.btnRed.cancelTask Cancelar
+
+.container-addTaskWithUser.ocultar-con-lugar
+    div.addTask
+        form
+            label Usuario a asignar:
+            select(name="select" id="seleccionUserAddTask")
+                each user in users
+                    option(value=`${user.id}`)= user.email
+
+
+            input(type="text", name="titulo" placeholder="Agregar titulo" id="titleTaskForUser" required)
+            label(for="fechaLimite") Fecha limite  
+            input(type="date", name="fechaLimite" id="fecha_limiteTaskForUser" min="2023-01-01")
+            label(for="priority") Priority
+
+            label.custom-range-slider.range
+                input.rango(type="range" max="3" min="1" value="1" id="prioridadTaskForUser")
+
+            textarea(name="description", cols="30", rows="10" placeholder="Agregar descripcion" id="descripcionTaskForUser" required)
+            .botones-add-task
+                button.btnBlue.saveTaskForUser Agregar
+                button.btnRed.cancelTaskForUser Cancelar
 
 //-Vista para agregar lista
 include addList

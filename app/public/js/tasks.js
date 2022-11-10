@@ -34,6 +34,19 @@ export function openDescription() {
         if (e.target.matches(".moreOptionsDeleteList")) {
             e.target.parentNode.parentNode.parentNode.querySelector('.btnDeleteList').classList.toggle("ocultar-con-lugar")
         }
+
+        //asignar task a usuario especifico
+        if (e.target.matches(".cancelTaskForUser")) {
+            e.preventDefault();
+            d.querySelector('.container-addTaskWithUser').classList.toggle("ocultar-con-lugar")
+        }
+
+        if (e.target.matches(".btnAsignar")) {
+            e.preventDefault();
+            d.querySelector('.container-addTaskWithUser').classList.toggle("ocultar-con-lugar")
+        }
+
+        
     })
 }
 

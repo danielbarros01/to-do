@@ -13,4 +13,7 @@ router.post('/delete', TaskController.delete);
 //Actualizar tarea
 router.put('/update/:id', TaskController.update)
 
+//Guardar tarea para cierto usuario
+router.post('/newTaskForUser', TaskController.saveForUser);
+
 module.exports = router;

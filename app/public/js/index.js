@@ -3,6 +3,7 @@ import hamburguerMenu from "/js/menu.js";
 import { rango } from "/js/rango.js";
 import { orderBy } from "./orderTasks.js";
 import { archivar } from "./archivar.js";
+import { asignar } from "./asignar.js";
 
 const d = document;
 
@@ -14,4 +15,5 @@ d.addEventListener("DOMContentLoaded", e => {
     rango();
     orderBy();
     archivar();
+    asignar();
 })

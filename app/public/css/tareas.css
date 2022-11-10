@@ -166,6 +166,17 @@
     color: #371B58;
 }
 
+.container-addTaskWithUser{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #371B58;
+}
+
 .addTask{
     width: 60vw;
     height: 80vh;
@@ -352,4 +363,16 @@ input[type=range] {
     display: grid;
     grid-template-columns: 10% 50% 12% 25%;
     background-color: #5B4B8A;
+}
+
+/* Add task a user */
+#seleccionUserAddTask{
+    font-size: 1.5rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-top: 0.4rem;
+    text-align: center;
+    border: 2px solid #7858A6;
+    outline: none;
+
 }

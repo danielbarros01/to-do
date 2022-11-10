@@ -1,4 +1,6 @@
-const { User, List, Task } = require('../models/index');
+const { User, List} = require('../models/index');
+const { Op } = require("sequelize");
+
 const f = require('../public/js/funcionalidades.js')
 
 module.exports = {
@@ -44,9 +46,16 @@ module.exports = {
             })
         })
 
-        
+        //traer usuarios
+        let users = await User.findAll({
+            where: {
+                id: {
+                  [Op.not]: req.user.id
+                }
+              }
+        })
 
         //res.json(listas2)
-        res.render('index2' , {lists: listas2});
+        res.render('index2' , {lists: listas2, users});
     }
 }
