@@ -5,6 +5,9 @@ export function archivar() {
         if (e.target.matches('.btnArchivar')) {
             archivarse(e);
         }
+        if (e.target.matches('.btnDesarchivar')) {
+            desarchivarse(e);
+        }
     });
 }
 
@@ -22,14 +25,15 @@ async function archivarse(e) {
 
     (tareas.tareas).forEach(task => {
         if (task.status == 'sin resolver' || task.status == 'resolviendo') {
-            return alert('Tienen que estar todas las tareas resueltas para poder archivar la lista');
             archivable = 0;
         } else {
             archivable = 1;
         }
     });
 
-    if (archivable == 1) {
+    if(archivable == 0){
+        return alert('Tienen que estar todas las tareas resueltas para poder archivar la lista');
+    }else if (archivable == 1) {
         fetch(`/list/updateArchive/${id}`, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
@@ -51,4 +55,20 @@ async function archivarse(e) {
 
     } */
 
+}
+
+async function desarchivarse(e){
+    const id = e.target.dataset.list_id;
+
+    fetch(`/list/updateArchive/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+            archivada: 0
+        })
+    }).then(res => {
+        let list = e.target.parentNode.parentNode.parentNode;
+        list.remove();
+        alert('Lista desarchivada');
+    })
 }
