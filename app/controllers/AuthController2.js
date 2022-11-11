@@ -13,7 +13,7 @@ module.exports = {
             const { name, email, password } = req.body;
 
             let passHash = await bcrypt.hash(password, 10);
-            console.log(passHash)
+            //console.log(passHash)
 
             User.create({ name, email, password: passHash })
                 .then(res.redirect('/home'))
@@ -57,13 +57,13 @@ module.exports = {
                     const token = jwt.sign({ id: id }, authConfig.secret, {
                         expiresIn: authConfig.expires
                     })
-                    console.log(`Token ${token} para el USUARIO: ${usuario}`)
+                    //console.log(`Token ${token} para el USUARIO: ${usuario}`)
 
                     const cookieOptions = {
                         expires: new Date(Date.now() + Number.parseInt(authConfig.expires) * 24 * 60 * 60 * 1000),
                         httpOnly: true
                     }
-                    res.cookie('jwt', token, cookieOptions);
+                    res.cookie('userAuthentic', token, cookieOptions);
                     res.render('signin', {
                         alert: true,
                         alertTitle: "Conexion exitosa",
@@ -83,7 +83,7 @@ module.exports = {
     },
 
     async logout(req,res){
-        res.clearCookie('jwt');
+        res.clearCookie('userAuthentic');
         return res.redirect('/home')
     }
 

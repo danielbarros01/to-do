@@ -4,9 +4,9 @@ const { User } = require('../models/index');
 
 module.exports = {
     async isAuthenticated(req,res, next){
-        if (req.cookies.jwt){
+        if (req.cookies.userAuthentic){
             try {
-                const decodificada = await jwt.verify(req.cookies.jwt, authConfig.secret);
+                const decodificada = await jwt.verify(req.cookies.userAuthentic, authConfig.secret);
                 const user = await User.findOne({ where: { id: decodificada.id } })
                 if(!user) return next();
                 req.user = user;

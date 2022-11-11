@@ -10,8 +10,8 @@ module.exports = {
     return Promise.all([
       
       User.create({
-        name: "Anton",
-        email: "azr@azr.es",
+        name: "Julieta",
+        email: "julieta@gmail.com",
         password: bcrypt.hashSync("123456", Number(authConfig.rounds)),
         lists: [
           {
@@ -32,8 +32,8 @@ module.exports = {
       }),
 
       User.create({
-        name: "Lucia",
-        email: "lucia@gmail.com",
+        name: "Andrea",
+        email: "andrea@gmail.com",
         password: bcrypt.hashSync("123456", Number(authConfig.rounds)),
         lists: [
           {

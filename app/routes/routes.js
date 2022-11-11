@@ -2,12 +2,10 @@ const express = require('express'),
     router = express.Router();
 
 //Importar controladores
-const TaskController = require('../controllers/TaskController');
-const ListController = require('../controllers/ListController');
 const AuthController = require('../controllers/AuthController2');
-const auth = require('../middlewares/auth');
 const UserController = require('../controllers/UserController');
 
+const auth = require('../middlewares/auth');
 
 //iniciarSesion
 router.get('/login', async (req, res) => {
