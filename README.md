@@ -11,7 +11,7 @@
 ## Detalles
 Aplicacion web, para administrar tus tareas, con la tecnologia de **Express**.
 Primero tendras que estar registrado para poder utilizarlo, se utilizo **bcrypt** para la autenticacion.
-Para la interaccion con la base de datos se utilizo **Sequelize**.
+Para la comunicacion con la base de datos se utilizo **Sequelize** y AJAX del lado del cliente.
 
 ### Mas info
 Para poder utilizarlo importa la base de datos expuesta como to-do-pruebas,
